@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->integer('user_id');
+            $table->string('title');
+            $table->string('describe');
+            $table->string('price');
+            $table->string("orgprice");
+            $table->string('day');
+            $table->string('category');
+            $table->string('codition');
+            $table->string('size');
+            $table->string('delivery');
             $table->timestamps();
         });
     }

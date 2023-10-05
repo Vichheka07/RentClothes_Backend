@@ -15,6 +15,8 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    
+    
 
     'name' => env('APP_NAME', 'Laravel'),
 
@@ -163,6 +165,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
