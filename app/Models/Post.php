@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -26,5 +26,8 @@ class Post extends Model implements HasMedia
     ];
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

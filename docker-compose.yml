@@ -1,0 +1,75 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/html:cached
+      - ./.docker/nginx:/etc/nginx/conf.d
+    networks:
+      - rent-clothes-backend-network
+    depends_on:
+      - app
+
+  app:
+    build:
+      args:
+        user: Ridoy
+        uid: 1000
+      context: ./.docker/app
+      dockerfile: Dockerfile
+    image: rent-clothes-backend
+    container_name: rent-clothes-backend
+    restart: unless-stopped
+    ports: 
+        - 6001:6001
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html:cached
+      - ./.docker/app/php-fpm.ini:/usr/local/etc/php/conf.d/99-app.ini
+    networks:
+      - rent-clothes-backend-network
+    depends_on:
+      - database
+
+  database:
+    image: mariadb:10.5.8
+    container_name: rentclothesdb
+    restart: unless-stopped
+    ports:
+      - 3304:3304
+    volumes:
+      - rent-clothes-backend-volume:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    networks:
+      - rent-clothes-backend-network
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - database
+    ports:
+      - 8088:80
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      UPLOAD_LIMIT: 1000M
+    networks:
+      - rent-clothes-backend-network
+networks:
+  rent-clothes-backend-network:
+    driver: bridge
+
+volumes:
+  rent-clothes-backend-volume:
+    driver: local
