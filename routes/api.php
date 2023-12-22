@@ -19,6 +19,7 @@ use App\Http\Controllers\OdersController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/posts', [PostController::class, 'index']); // all posts
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function() {
@@ -29,7 +30,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Post
-    Route::get('/posts', [PostController::class, 'index']); // all posts
     Route::post('/posts', [PostController::class, 'store']); // create post
     Route::get('/posts/{id}', [PostController::class, 'show']); // get single post
     Route::put('/posts/{id}', [PostController::class, 'update']); // update post
