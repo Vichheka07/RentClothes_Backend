@@ -12,7 +12,7 @@ class PostController extends Controller
     {
         $post = Post::latest()->get();
 
-        return response()->json($post);
+        return PostResource::collection($post);
     }
 
     public function store(Request $request)
