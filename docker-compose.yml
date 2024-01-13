@@ -6,9 +6,12 @@ services:
     restart: unless-stopped
     ports:
       - 8000:80
+      - 80:80
+      - 443:443
     volumes:
       - ./:/var/www/html:cached
       - ./.docker/nginx:/etc/nginx/conf.d
+      - ./.docker/letsencrypt/rentclothes.online:/etc/nginx/ssl
     networks:
       - rent-clothes-backend-network
     depends_on:

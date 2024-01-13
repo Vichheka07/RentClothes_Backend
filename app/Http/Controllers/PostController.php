@@ -43,7 +43,7 @@ class PostController extends Controller
 
         return [
             'message' => 'Article created successfully',
-            'data' => new PostResource($post)
+            // 'data' => new PostResource($post)
         ];
     }
 }
