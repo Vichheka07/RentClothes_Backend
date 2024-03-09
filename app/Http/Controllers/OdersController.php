@@ -31,7 +31,6 @@ class OdersController extends Controller
         $order = new Order;
         $order-> user_id = Auth::user()->id;
         $order-> post_id =$request->id;
-        $order-> 
         $order->orderdate = $request->input('orderdate', now());
         $order->save();
 

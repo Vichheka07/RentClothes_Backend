@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\OdersController;
+use App\Http\Controllers\KhmerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,8 @@ use App\Http\Controllers\OdersController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/posts', [PostController::class, 'index']); // all posts
+Route::get('/posts', [PostController::class, 'index']); // all post
+Route::get('/{category}', [KhmerController::class,'index']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function() {
