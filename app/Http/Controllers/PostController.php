@@ -46,4 +46,8 @@ class PostController extends Controller
             // 'data' => new PostResource($post)
         ];
     }
+    public function search(Request $request){
+        $post = Post::where('title', 'like', '%'.$request->title.'%')->latest()->get();
+        return PostResource::collection($post);
+    }
 }

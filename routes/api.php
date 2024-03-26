@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\OdersController;
 use App\Http\Controllers\KhmerController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,13 @@ use App\Http\Controllers\KhmerController;
 |
 */
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/posts', [PostController::class, 'index']); // all post
-Route::get('/{category}', [KhmerController::class,'index']);
+Route::post('/register', [AuthController::class,'register']);
+Route::post('/login', [AuthController::class,'login']);
+Route::get('/posts', [PostController::class,'index']); // all post
+Route::get('/{category}', [KhmerController::class,'index']); // all post
+Route::post('/posts/find', [PostController::class,'search']); //search item
+Route::get('/profile/user', [ProfileController::class,'index']);
+
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function() {
