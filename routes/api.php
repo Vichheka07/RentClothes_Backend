@@ -41,8 +41,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::put('/posts/{id}', [PostController::class, 'update']); // update post
     Route::delete('/posts/{id}', [PostController::class, 'destroy']); // delete post
 
-    Route::get('/posts/{id}/orders', [OdersController::class, 'index']);
-    Route::post('/posts/{id}/orders', [OdersController::class, 'store']);
+    Route::get('/orders/renter', [OdersController::class, 'index']); //seller view order
+    Route::get('/orders/customer', [OdersController::class, 'show']); //seller view order
+    Route::post('/posts/orders', [OdersController::class, 'store']);
     Route::put('/posts/{id}/orders', [OdersController::class, 'update']);
-    Route::get('/posts/orders', [OdersController::class, 'order']);
 });
