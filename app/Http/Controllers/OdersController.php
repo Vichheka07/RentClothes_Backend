@@ -13,8 +13,8 @@ class OdersController extends Controller
 
     //seller view customer orders
     public function index(Request $request){
-        $post = Post::select('posts.id','posts.title', 'posts.price', 'posts.day', 'posts.delivery',
-        'users.name as user_name', 'orders.size', 'orders.address','orders.orderdate')
+        $post = Post::select('posts.id','posts.title','posts.describe','users.name', 'posts.price', 'posts.day', 'posts.delivery',
+        'users.name as user_name', 'orders.size', 'orders.address','orders.orderdate','orders.orderstatus')
         ->join('orders', 'posts.id', '=', 'orders.post_id')
         ->join('users', 'orders.user_id', '=', 'users.id')
         ->where('posts.user_id', Auth::user()->id)
@@ -32,8 +32,8 @@ class OdersController extends Controller
     }
     //customer view order
     public function show(Request $request){
-        $post = Post::select('posts.id','posts.title', 'posts.price', 'posts.day', 'posts.delivery',
-        'users.name as user_name', 'orders.size', 'orders.address','orders.orderdate')
+        $post = Post::select('posts.id','posts.title','posts.describe','posts.price','users.name', 'posts.day', 'posts.delivery',
+        'users.name as user_name', 'orders.size','orders.orderdate')
         ->join('orders', 'posts.id', '=', 'orders.post_id')
         ->join('users', 'orders.user_id', '=', 'users.id')
         ->where('orders.user_id', Auth::user()->id)
@@ -64,7 +64,7 @@ class OdersController extends Controller
             'messege' => 'order success'
         ]);
     }
-    //seller update orders status
+    //seller and customer update orders status
     public function update(Request $request){
         $order = Order::find($request->id);
 

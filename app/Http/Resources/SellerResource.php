@@ -18,11 +18,15 @@ class SellerResource extends JsonResource
             'id' => $this->id,
             'images' => ImagesResource::collection($this->getMedia('images')),
             'title'   => $this->title,
+            'describe' => $this->describe,
+            'name' => $this->name,
             'price' => $this->price,
             'day' => $this->day,
             'size' => $this-> size,
+            'address' => $this-> address,
             'delivery' => $this->delivery,
             'orderdate' => $this->orderdate,
+            'orderstatus' => $this->orderstatus,
         ];
 
     }

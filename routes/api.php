@@ -40,9 +40,11 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/posts/{id}', [PostController::class, 'show']); // get single post
     Route::put('/posts/{id}', [PostController::class, 'update']); // update post
     Route::delete('/posts/{id}', [PostController::class, 'destroy']); // delete post
+    Route::post('/posts/profile', [ProfileController::class, 'store']);
+    Route::get('/posts/profile/show', [ProfileController::class, 'show']);
 
     Route::get('/orders/renter', [OdersController::class, 'index']); //seller view order
     Route::get('/orders/customer', [OdersController::class, 'show']); //seller view order
     Route::post('/posts/orders', [OdersController::class, 'store']);
-    Route::put('/posts/{id}/orders', [OdersController::class, 'update']);
+    Route::put('/posts/orders', [OdersController::class, 'update']);
 });
