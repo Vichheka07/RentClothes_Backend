@@ -13,7 +13,7 @@ class OdersController extends Controller
 
     //seller view customer orders
     public function index(Request $request){
-        $post = Post::select('posts.id','posts.title','posts.describe','users.name', 'posts.price', 'posts.day', 'posts.delivery',
+        $post = Post::select('orders.id','posts.title','posts.describe','users.name', 'posts.price', 'posts.day', 'posts.delivery',
         'users.name as user_name', 'orders.size', 'orders.address','orders.orderdate','orders.orderstatus')
         ->join('orders', 'posts.id', '=', 'orders.post_id')
         ->join('users', 'orders.user_id', '=', 'users.id')
@@ -33,11 +33,11 @@ class OdersController extends Controller
     //customer view order
     public function show(Request $request){
         $post = Post::select('posts.id','posts.title','posts.describe','posts.price','users.name', 'posts.day', 'posts.delivery',
-        'users.name as user_name', 'orders.size','orders.orderdate')
+        'users.name as user_name', 'orders.size','orders.orderdate','orders.orderstatus')
         ->join('orders', 'posts.id', '=', 'orders.post_id')
         ->join('users', 'orders.user_id', '=', 'users.id')
         ->where('orders.user_id', Auth::user()->id)
-        ->where('orders.orderstatus', 'pending')
+        // ->where('orders.orderstatus', 'pending')
         ->get();
     
         if (!$post) {
@@ -70,12 +70,14 @@ class OdersController extends Controller
 
         if (!$order) {
             return response()->json([
-                'success' => false,
                 'message' => 'Order not found',
             ], 404);
         }
         $order->orderstatus = $request->orderstatus;
         $order->save();
+        return response()->json([
+            'message'=> "Comfirm Ready"
+        ],200);
     }   
     
 }

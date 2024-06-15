@@ -46,5 +46,5 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/orders/renter', [OdersController::class, 'index']); //seller view order
     Route::get('/orders/customer', [OdersController::class, 'show']); //seller view order
     Route::post('/posts/orders', [OdersController::class, 'store']);
-    Route::put('/posts/orders', [OdersController::class, 'update']);
+    Route::put('/orders/renter', [OdersController::class, 'update']);
 });

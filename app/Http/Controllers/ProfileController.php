@@ -26,7 +26,6 @@ class ProfileController extends Controller
             'user_id' => auth()->user()->id
         ]);
         $imageName = $request->image->getClientOriginalName();
-       // $imageName = str_replace(' ', '%20', $imageName); // Replace spaces with '%20'
         $request->image->storeAs('profile', $imageName, 'public');
         return response([
             'message'=> 'upload profile successfull'
@@ -46,7 +45,7 @@ class ProfileController extends Controller
             $imageName = str_replace(' ', '%20', $imageName); // Replace spaces with '%20'
     
             // Assuming your base URL is 'http://192.168.3.36'
-            $baseUrl = 'http://192.168.3.36:8000';
+            $baseUrl = env('APP_URL');
             $imagePath = '/storage/profile/';
             $imageUrl = $baseUrl . $imagePath . $imageName;
     
